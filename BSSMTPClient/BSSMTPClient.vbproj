@@ -56,6 +56,10 @@
     <ApplicationIcon>Resources\mail.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BurnSoft.Security, Version=4.6.1.14001, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\BurnSoft.Security.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -130,6 +134,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\mail.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BurnSoft.Security.dll" />
+    <Content Include="BurnSoft.Security.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

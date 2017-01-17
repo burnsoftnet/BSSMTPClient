@@ -47,7 +47,7 @@ Module modGlobal
                 End If
             Next
         End If
-        Return LCase(sAns)
+        Return sAns
     End Function
     '''<summary>
     ''' The Get Command will looks for Command Line Arguments, this on will return as long

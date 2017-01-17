@@ -1,0 +1,282 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+BurnSoft.Security
+</name>
+</assembly>
+<members>
+<member name="T:BurnSoft.Security.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:BurnSoft.Security.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:BurnSoft.Security.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CMD5.Class_Initialize_Renamed">
+ <summary>
+ We will usually get quicker results by preparing arrays of bit patterns and
+ powers of 2 ahead of time instead of calculating them every time, unless of
+ course the methods are only ever getting called once per instantiation of the
+ class.
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CMD5.LShift(System.Int32,System.Int16)">
+ <summary>
+ A left shift takes all the set binary bits and moves them left, in-filling
+  with zeros in the vacated bits on the right. This function is equivalent to
+ </summary>
+ <param name="lValue"></param>
+ <param name="iShiftBits"></param>
+ <returns>Long - The shifted long integer</returns>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CMD5.RShift(System.Int32,System.Int16)">
+ <summary>
+ The right shift of an unsigned long integer involves shifting all the set bits
+ to the right and in-filling on the left with zeros. This function is
+ equivalent to the >>> operator in Java or the >> operator in C++ when used on
+ an unsigned long.
+ </summary>
+ <param name="lValue"></param>
+ <param name="iShiftBits"></param>
+ <returns>Long - The shifted long integer</returns>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CMD5.RShiftSigned(System.Int32,System.Int16)">
+ <summary>
+ The right shift of a signed long integer involves shifting all the set bits to
+ the right and in-filling on the left with the sign bit (0 if positive, 1 if
+ negative. This function is equivalent to the >> operator in Java or the >>
+ operator in C++ when used on a signed long integer. Not used in this class,
+ but included for completeness.
+ </summary>
+ <param name="lValue"></param>
+ <param name="iShiftBits"></param>
+ <returns>Long</returns>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CMD5.RotateLeft(System.Int32,System.Int16)">
+ <summary>
+ Rotates the bits in a long integer to the left, those bits falling off the
+ left edge are put back on the right edge
+ </summary>
+ <param name="lValue"></param>
+ <param name="iShiftBits"></param>
+ <returns>Long - Result</returns>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CMD5.AddUnsigned(System.Int32,System.Int32)">
+ <summary>
+ Adds two potentially large unsigned numbers without overflowing
+ </summary>
+ <param name="lX"></param>
+ <param name="lY"></param>
+ <returns>Long - Result</returns>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CMD5.F(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ MD5's F function
+ </summary>
+ <param name="x"></param>
+ <param name="y"></param>
+ <param name="z"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CMD5.G(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ MD5's G function
+ </summary>
+ <param name="x"></param>
+ <param name="y"></param>
+ <param name="z"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CMD5.H(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ MD5's H function
+ </summary>
+ <param name="x"></param>
+ <param name="y"></param>
+ <param name="z"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CMD5.I(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ MD5's I function
+ </summary>
+ <param name="x"></param>
+ <param name="y"></param>
+ <param name="z"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CMD5.FF(System.Int32@,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+ <summary>
+ MD5's FF procedure
+ </summary>
+ <param name="a"></param>
+ <param name="b"></param>
+ <param name="c"></param>
+ <param name="d"></param>
+ <param name="x"></param>
+ <param name="s"></param>
+ <param name="ac"></param>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CMD5.GG(System.Int32@,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+ <summary>
+ MD5's GG procedure
+ </summary>
+ <param name="a"></param>
+ <param name="b"></param>
+ <param name="c"></param>
+ <param name="d"></param>
+ <param name="x"></param>
+ <param name="s"></param>
+ <param name="ac"></param>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CMD5.HH(System.Int32@,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+ <summary>
+ MD5's HH procedure
+ </summary>
+ <param name="a"></param>
+ <param name="b"></param>
+ <param name="c"></param>
+ <param name="d"></param>
+ <param name="x"></param>
+ <param name="s"></param>
+ <param name="ac"></param>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CMD5.II(System.Int32@,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+ <summary>
+ MD5's II procedure
+ </summary>
+ <param name="a"></param>
+ <param name="b"></param>
+ <param name="c"></param>
+ <param name="d"></param>
+ <param name="x"></param>
+ <param name="s"></param>
+ <param name="ac"></param>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CMD5.ConvertToWordArray(System.String@)">
+ <summary>
+ Takes the string message and puts it in a long array with padding according to
+ the MD5 rules. Note we are using only the first byte of each character with
+ the AscB function, this may well mess up in unicode/dbcs situations where you
+ are comparing what was generated on two different PCs with different
+ character sets.
+ </summary>
+ <param name="sMessage"></param>
+ <returns>Long() - Converted message as long array</returns>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CMD5.WordToHex(System.Int32)">
+ <summary>
+ Takes a long integer and due to the bytes reverse order it extracts the
+ individual bytes and converts them to hex appending them for an overall hex
+ value
+ </summary>
+ <param name="lValue"></param>
+ <returns>String - Hex value to return</returns>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CMD5.MD5(System.String@)">
+ <summary>
+ This function takes a string message and generates an MD5 digest for it.
+ sMessage can be up to the VB string length limit of 2^31 (approx. 2 billion)
+ characters.
+ </summary>
+ <param name="sMessage"></param>
+ <returns>String - The MD5 digest</returns>
+ <remarks>Due to the way in which the string is processed the routine assumes a
+ single byte character set. VB passes unicode (2-byte) character strings, the
+ ConvertToWordArray function uses on the first byte for each character. This
+ has been done this way for ease of use, to make the routine truely portable
+ you could accept a byte array instead, it would then be up to the calling
+ routine to make sure that the byte array is generated from their string in
+ a manner consistent with the string type.
+ </remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CGenericRegistration.GenerateKey(System.String@)">
+ <summary>
+ Generates a random key by first selecting 9 random characters from our 32
+ valid characters, adding our application specific characters, creating an
+ MD5 digest, and using the digest to select the other 16 characters for
+ our key.
+ </summary>
+ <param name="sAppChars"></param>
+ <returns>String - The key</returns>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.CGenericRegistration.IsKeyOK(System.String@,System.String@)">
+ <summary>
+ Takes the key, recalculates the MD5 part and tests for equality.
+ </summary>
+ <param name="sKey"></param>
+ <param name="sAppChars"></param>
+ <returns>Boolean - True if valid</returns>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.oEncrypt.EncryptMD5(System.String)">
+ <summary>
+ Pass a string to Encrypt using MD5
+ </summary>
+ <param name="cleanString"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.oEncrypt.EncryptSHA(System.String)">
+ <summary>
+ Pass string to Encrypt using SHA
+ </summary>
+ <param name="Data"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.oEncrypt.DecryptSHA(System.String)">
+ <summary>
+ Pass string to decrypt Using SHA
+ </summary>
+ <param name="Data"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.oEncrypt.EncryptURL(System.String,System.String)">
+ <summary>
+ Encypt the details of a url using SHA
+ </summary>
+ <param name="strUrl"></param>
+ <param name="strSessionID"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+<member name="M:BurnSoft.Security.Cyhper.oEncrypt.DecryptURL(System.String,System.String)">
+ <summary>
+ Decrypt a URL using SHA
+ </summary>
+ <param name="strUrl"></param>
+ <param name="strSessionID"></param>
+ <returns></returns>
+ <remarks></remarks>
+</member>
+</members>
+</doc>
