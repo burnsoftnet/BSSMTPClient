@@ -23,7 +23,7 @@ Namespace BurnSoft
             Message.From = strSendFrom
 
             If intBound <> 0 Then
-                For i = 0 To intBound - 1
+                For i = 0 To intBound
                     Message.To.Add(strSplit(i))
                 Next
             Else
@@ -34,7 +34,7 @@ Namespace BurnSoft
                 strSplit = Split(CC, ",")
                 intBound = UBound(strSplit)
                 If intBound <> 0 Then
-                    For i = 0 To intBound - 1
+                    For i = 0 To intBound
                         Message.CC.Add(strSplit(i))
                     Next
                 Else
@@ -46,7 +46,7 @@ Namespace BurnSoft
                 strSplit = Split(BCC, ",")
                 intBound = UBound(strSplit)
                 If intBound <> 0 Then
-                    For i = 0 To intBound - 1
+                    For i = 0 To intBound
                         Message.Bcc.Add(strSplit(i))
                     Next
                 Else
@@ -64,7 +64,7 @@ Namespace BurnSoft
                     intBound = UBound(strSplit)
                     Dim myFile As Attachment
                     If intBound <> 0 Then
-                        For i = 0 To intBound - 1
+                        For i = 0 To intBound
                             If FileExists(strSplit(i)) Then
                                 myFile = New Attachment(strSplit(i))
                                 Message.Attachments.Add(myFile)
@@ -104,8 +104,8 @@ Namespace BurnSoft
                         If LOG_TO_FILE Then Call LogFile(LOG_PATH & "\" & LOG_NAME, ErrorMsg)
                     Else
                         Console.WriteLine("Message Sent to: " & strTo)
-                        If LOG_TO_FILE Then Call LogFile(LOG_PATH & "\" & LOG_NAME, "Message Sent to: " & strTo)
-                    End If
+                    Call LogFile(LOG_PATH & "\" & LOG_NAME, "Message Sent to: " & strTo)
+                End If
                 End Try
         End Sub
     End Class

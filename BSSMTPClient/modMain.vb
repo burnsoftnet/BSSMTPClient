@@ -17,8 +17,12 @@ Module modMain
     ''' <returns>password in plain text</returns>
     Private Function DCPWD(sValue As String) As String
         Dim sAns As String = ""
-        Dim Obj As New Cyhper.oEncrypt
-        sAns = Obj.DecryptSHA(sValue)
+        Try
+            Dim Obj As New Cyhper.oEncrypt
+            sAns = Obj.DecryptSHA(sValue)
+        Catch ex As Exception
+            Call LogFile(LOG_PATH & "\" & LOG_NAME, "ERROR In Decryption! " & ex.Message.ToString)
+        End Try
         Return sAns
     End Function
     ''' <summary>
@@ -28,8 +32,12 @@ Module modMain
     ''' <returns>password in SHA encryption</returns>
     Private Function ECPWD(sValue As String) As String
         Dim sAns As String = ""
-        Dim Obj As New Cyhper.oEncrypt
-        sAns = Obj.EncryptSHA(sValue)
+        Try
+            Dim Obj As New Cyhper.oEncrypt
+            sAns = Obj.EncryptSHA(sValue)
+        Catch ex As Exception
+            Call LogFile(LOG_PATH & "\" & LOG_NAME, "ERROR In Encryption! " & ex.Message.ToString)
+        End Try
         Return sAns
     End Function
     ''' <summary>
@@ -51,8 +59,12 @@ Module modMain
             ConfigurationManager.RefreshSection("appSettings")
             Console.WriteLine("The " & sSection & " has been updated!")
         Catch ex As Exception
-            Console.WriteLine("Error Occured while saving " & sSection & " setting!")
-            Console.WriteLine("Error Details: " & ex.Message.ToString)
+            Dim sMsg As String = "Error Occured while saving " & sSection & " setting!"
+            Console.WriteLine(sMsg)
+            Call LogFile(LOG_PATH & "\" & LOG_NAME, sMsg)
+            sMsg = "Error Details: " & ex.Message.ToString
+            Console.WriteLine(sMsg)
+            Call LogFile(LOG_PATH & "\" & LOG_NAME, sMsg)
             Call ExitApp(1)
         End Try
     End Sub
@@ -61,72 +73,76 @@ Module modMain
     ''' If the command parameter doesn't exist, then it will default to what is in the app.config
     ''' </summary>
     Sub init()
-        Dim DidExist As Boolean = False
+        Try
+            Dim DidExist As Boolean = False
 
-        If GetCommand("?", False) Or GetCommand("help", False) Then
-            Call ShowHelp()
-        End If
-
-        UPDATEPASSWORD = GetCommand("ump", False)
-        If UPDATEPASSWORD Then
-            Console.Write("Please enter in Password:")
-            Dim NewPass As String = Console.ReadLine()
-            Call UpdatePasswords(NewPass, "MAIL_PASSWORD", "mail password")
-            Call ExitApp()
-        End If
-
-        UPDATEPROXYPWD = GetCommand("upp", False)
-        If UPDATEPROXYPWD Then
-            Console.Write("Please enter in Password:")
-            Dim NewPass As String = Console.ReadLine()
-            Call UpdatePasswords(NewPass, "PROXY_PWD", "proxy password")
-            Call ExitApp()
-        End If
-
-        MAIL_SERVER = GetCommand("host", System.Configuration.ConfigurationManager.AppSettings("MAIL_SERVER"))
-        If Len(MAIL_SERVER) = 0 Then Call RequirementMissing("/host=[machine]")
-        MAIL_PORT = GetCommand("port", CInt(System.Configuration.ConfigurationManager.AppSettings("MAIL_PORT")))
-        If Len(MAIL_PORT) = 0 Then Call RequirementMissing("/port=[port]")
-        MAIL_TIMEOUT = GetCommand("timeout", CLng(System.Configuration.ConfigurationManager.AppSettings("MAIL_TIMEOUT")))
-        If Len(MAIL_TIMEOUT) = 0 Then Call RequirementMissing("/timeout=[timeout]")
-        MAIL_USER = GetCommand("user", System.Configuration.ConfigurationManager.AppSettings("MAIL_USER"))
-
-        MAIL_PASSWORD = GetCommand("pwd", DCPWD(System.Configuration.ConfigurationManager.AppSettings("MAIL_PASSWORD")))
-        MAIL_USETLS = GetCommand("usetls", CBool(System.Configuration.ConfigurationManager.AppSettings("MAIL_USETLS")))
-        MAIL_USEHTML = GetCommand("usehtml", CBool(System.Configuration.ConfigurationManager.AppSettings("MAIL_USEHTML")))
-
-        PROXY_USE = GetCommand("useproxy", CBool(System.Configuration.ConfigurationManager.AppSettings("PROXY_USE")))
-        If PROXY_USE Then
-            PROXY_PORT = GetCommand("proxyport", CInt(System.Configuration.ConfigurationManager.AppSettings("PROXY_PORT")))
-            If Len(PROXY_PORT) = 0 Then Call RequirementMissing("/proxyport=[proxyport]")
-            PROXY_SERVER = GetCommand("proxyserver", System.Configuration.ConfigurationManager.AppSettings("PROXY_SERVER"))
-            If Len(PROXY_SERVER) = 0 Then Call RequirementMissing("/proxyserver=[proxyserver]")
-            PROXY_UID = GetCommand("proxyuser", System.Configuration.ConfigurationManager.AppSettings("PROXY_UID"))
-            If Len(PROXY_UID) = 0 Then Call RequirementMissing("/proxyuser=[user id]")
-            PROXY_PWD = GetCommand("proxypwd", DCPWD(System.Configuration.ConfigurationManager.AppSettings("PROXY_PWD")))
-            If Len(PROXY_PWD) = 0 Then Call RequirementMissing("/proxypwd=[password]")
-        End If
-
-        Message_From = GetCommand("from", MAIL_USER)
-        If Len(Message_From) = 0 Then Call RequirementMissing("/from=[email]")
-        Message_To = GetCommand("to", "", DidExist)
-        If Not DidExist Then Call RequirementMissing("/to=[email]")
-        Message_CC = GetCommand("cc", "")
-        Message_BCC = GetCommand("bcc", "")
-        MAIL_ATTACHFILES = GetCommand("attach", "")
-        Message_Subject = GetCommand("subject", "", DidExist)
-        If Not DidExist Then Call RequirementMissing("/subject=[subject]")
-        Message_Body = GetCommand("message", "", DidExist)
-        If Not DidExist Then Call RequirementMissing("/message=[message]")
-
-        LOG_TO_FILE = CBool(System.Configuration.ConfigurationManager.AppSettings("LOG_TO_FILE"))
-        If LOG_TO_FILE Then
-            LOG_NAME = System.Configuration.ConfigurationManager.AppSettings("LOG_NAME")
-            LOG_PATH = System.Configuration.ConfigurationManager.AppSettings("LOG_PATH")
-            If Len(LOG_PATH) = 0 Then
-                LOG_PATH = System.Windows.Forms.Application.StartupPath
+            If GetCommand("?", False) Or GetCommand("help", False) Then
+                Call ShowHelp()
             End If
-        End If
+
+            UPDATEPASSWORD = GetCommand("ump", False)
+            If UPDATEPASSWORD Then
+                Console.Write("Please enter in Password:")
+                Dim NewPass As String = Console.ReadLine()
+                Call UpdatePasswords(NewPass, "MAIL_PASSWORD", "mail password")
+                Call ExitApp()
+            End If
+
+            UPDATEPROXYPWD = GetCommand("upp", False)
+            If UPDATEPROXYPWD Then
+                Console.Write("Please enter in Password:")
+                Dim NewPass As String = Console.ReadLine()
+                Call UpdatePasswords(NewPass, "PROXY_PWD", "proxy password")
+                Call ExitApp()
+            End If
+
+            MAIL_SERVER = GetCommand("host", System.Configuration.ConfigurationManager.AppSettings("MAIL_SERVER"))
+            If Len(MAIL_SERVER) = 0 Then Call RequirementMissing("/host=[machine]")
+            MAIL_PORT = GetCommand("port", CInt(System.Configuration.ConfigurationManager.AppSettings("MAIL_PORT")))
+            If Len(MAIL_PORT) = 0 Then Call RequirementMissing("/port=[port]")
+            MAIL_TIMEOUT = GetCommand("timeout", CLng(System.Configuration.ConfigurationManager.AppSettings("MAIL_TIMEOUT")))
+            If Len(MAIL_TIMEOUT) = 0 Then Call RequirementMissing("/timeout=[timeout]")
+            MAIL_USER = GetCommand("user", System.Configuration.ConfigurationManager.AppSettings("MAIL_USER"))
+
+            MAIL_PASSWORD = GetCommand("pwd", DCPWD(System.Configuration.ConfigurationManager.AppSettings("MAIL_PASSWORD")))
+            MAIL_USETLS = GetCommand("usetls", CBool(System.Configuration.ConfigurationManager.AppSettings("MAIL_USETLS")))
+            MAIL_USEHTML = GetCommand("usehtml", CBool(System.Configuration.ConfigurationManager.AppSettings("MAIL_USEHTML")))
+
+            PROXY_USE = GetCommand("useproxy", CBool(System.Configuration.ConfigurationManager.AppSettings("PROXY_USE")))
+            If PROXY_USE Then
+                PROXY_PORT = GetCommand("proxyport", CInt(System.Configuration.ConfigurationManager.AppSettings("PROXY_PORT")))
+                If Len(PROXY_PORT) = 0 Then Call RequirementMissing("/proxyport=[proxyport]")
+                PROXY_SERVER = GetCommand("proxyserver", System.Configuration.ConfigurationManager.AppSettings("PROXY_SERVER"))
+                If Len(PROXY_SERVER) = 0 Then Call RequirementMissing("/proxyserver=[proxyserver]")
+                PROXY_UID = GetCommand("proxyuser", System.Configuration.ConfigurationManager.AppSettings("PROXY_UID"))
+                If Len(PROXY_UID) = 0 Then Call RequirementMissing("/proxyuser=[user id]")
+                PROXY_PWD = GetCommand("proxypwd", DCPWD(System.Configuration.ConfigurationManager.AppSettings("PROXY_PWD")))
+                If Len(PROXY_PWD) = 0 Then Call RequirementMissing("/proxypwd=[password]")
+            End If
+
+            Message_From = GetCommand("from", MAIL_USER)
+            If Len(Message_From) = 0 Then Call RequirementMissing("/from=[email]")
+            Message_To = GetCommand("to", "", DidExist)
+            If Not DidExist Then Call RequirementMissing("/to=[email]")
+            Message_CC = GetCommand("cc", "")
+            Message_BCC = GetCommand("bcc", "")
+            MAIL_ATTACHFILES = GetCommand("attach", "")
+            Message_Subject = GetCommand("subject", "", DidExist)
+            If Not DidExist Then Call RequirementMissing("/subject=[subject]")
+            Message_Body = GetCommand("message", "", DidExist)
+            If Not DidExist Then Call RequirementMissing("/message=[message]")
+
+            LOG_TO_FILE = CBool(System.Configuration.ConfigurationManager.AppSettings("LOG_TO_FILE"))
+            If LOG_TO_FILE Then
+                LOG_NAME = System.Configuration.ConfigurationManager.AppSettings("LOG_NAME")
+                LOG_PATH = System.Configuration.ConfigurationManager.AppSettings("LOG_PATH")
+                If Len(LOG_PATH) = 0 Then
+                    LOG_PATH = System.Windows.Forms.Application.StartupPath
+                End If
+            End If
+        Catch ex As Exception
+            Call LogFile(LOG_PATH & "\" & LOG_NAME, "Error in INIT! " & ex.Message.ToString)
+        End Try
     End Sub
     ''' <summary>
     ''' Console Message to alert that a required field or configuration is missing
@@ -196,10 +212,14 @@ Module modMain
     ''' Starting Sub
     ''' </summary>
     Sub Main()
-        Call init()
-        Dim Obj As New BurnSoft.BSMail
-        Obj.SendMail(Message_To, Message_From, Message_Subject, Message_Body)
-        Obj = Nothing
+        Try
+            Call init()
+            Dim Obj As New BurnSoft.BSMail
+            Obj.SendMail(Message_To, Message_From, Message_Subject, Message_Body)
+            Obj = Nothing
+        Catch ex As Exception
+            Call LogFile(LOG_PATH & "\" & LOG_NAME, "Error in Main! " & ex.Message.ToString)
+        End Try
     End Sub
 
 End Module

@@ -114,8 +114,10 @@ Module modGlobal
         Return bAns
     End Function
     Public Sub LogFile(ByVal strPath As String, ByVal strMessage As String)
-        Dim SendMessage As String = DateTime.Now & vbTab & strMessage
-        Call AppendToFile(strPath, SendMessage)
+        If LOG_TO_FILE Then
+            Dim SendMessage As String = DateTime.Now & vbTab & strMessage
+            Call AppendToFile(strPath, SendMessage)
+        End If
     End Sub
     Public Sub LogDebugFile(ByVal strPath As String, ByVal strMessage As String)
         Dim SendMessage As String = DateTime.Now & vbTab & strMessage
