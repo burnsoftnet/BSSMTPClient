@@ -6,3 +6,5 @@ The BurnSoft SMTP Client was created as a command line base email client that wi
 Also see the <a href=https://github.com/burnsoftnet/BSSMTPClient/blob/master/Docs/BSSMTPClient%20-%20About.pdf>Docs/BSSMTPClient - About.pdf for more details
 
 
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JSW8XEMQVH4BE)]
+
